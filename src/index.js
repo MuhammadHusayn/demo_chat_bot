@@ -16,13 +16,14 @@ bot.on('message', (message) => {
 
     users[messageId] = msgChatId
 
-    console.log(JSON.stringify(message, null, 4))
-
     if (isReply && replyMesageId && msgChatId == chatId) {
         bot.copyMessage(
             users[replyMesageId],
             chatId,
-            messageId
+            messageId, {
+                protect_content: true,
+                reply_to_message_id: replyMesageId
+            }
         )
     } else if (msgChatId != chatId) {
         bot.forwardMessage(chatId, msgChatId, messageId)
